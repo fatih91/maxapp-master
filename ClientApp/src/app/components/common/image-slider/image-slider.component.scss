@@ -1,0 +1,57 @@
+$max-width: 400px;
+
+drag-scroll img{
+  height: 100px;
+  width: 100px;
+  padding: 0 1px;
+}
+
+drag-scroll{
+  height: 100px;
+}
+
+.max-box{
+  padding: 5px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 1px solid #cfcfcf;
+  width: $max-width;
+}
+
+.max-imageview{
+  margin-top: 20px;
+  height: 400px;
+  width: $max-width;
+}
+
+.max-image{ //Bild wird so skaliert, dass es nicht mehr verschwommen aussihet
+  //object-fit: contain
+}
+
+@media(max-width: 491px) {
+  .max-box{
+    width: 100%;
+  }
+
+  .max-imageview{
+    width: 100%;
+    height: auto;
+  }
+}
+
+.description{
+  word-break: normal;
+}
+.tr-description{
+  text-align: left;
+}
+
+th{
+  font-weight: lighter;
+  padding: 0 5px 0px 5px;
+}
+
+td{
+  padding: 0px 5px 5px 5px;
+  text-align: center;
+}

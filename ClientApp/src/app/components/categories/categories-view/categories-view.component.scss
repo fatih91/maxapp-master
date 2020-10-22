@@ -1,0 +1,12 @@
+@import 'variables';
+
+.categoryName{
+  font-size: 16px;
+  color: #003A81;
+  cursor: pointer;
+}
+
+.categoryName:hover{
+  color: $max-hover-color;
+}
+

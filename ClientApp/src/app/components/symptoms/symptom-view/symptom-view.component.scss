@@ -1,0 +1,66 @@
+div.container-fluid{
+  margin-top: 36px;
+  padding: 0 45px;
+  padding-bottom: 20px;
+}
+
+.changePointer{
+  cursor: pointer;
+}
+
+.max-title {
+  font-size: 20px;
+  margin-bottom: 25px;
+}
+
+.max-attribute {
+  font-size: 12px;
+  color: #003A81;
+  margin: 20px 0px -2px;
+}
+
+mat-card.max-diagnosen{
+  width: 275px;
+  overflow: auto;
+  margin-top: 30px;
+}
+
+div.max-diagnosen{
+  overflow: auto;
+  margin-top: 30px;
+  padding: 24px;
+  background: white;
+}
+
+div.mat-table-wrapper{
+  overflow: auto;
+}
+
+table{
+  width: 100%;
+  background: transparent;
+}
+
+@media (max-width: 599px){
+  div.max-diagnosen{
+    background: white;
+    padding: 24px 16px;
+    //width: 275px;
+    height: auto;
+  }
+
+  .default-top-margin{
+    margin-top: 25px;
+  }
+
+  div.mat-table-wrapper{
+    max-width: 400px;
+    width: 100%;
+  }
+
+  table{
+    background: transparent !important;
+  }
+
+
+}

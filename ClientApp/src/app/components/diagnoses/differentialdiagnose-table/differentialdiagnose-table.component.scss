@@ -1,0 +1,12 @@
+table {
+  width: 100%;
+  box-shadow: none;
+}
+
+tr.changePointer{
+  cursor: pointer;
+}
+
+div.table-wrapper{
+  overflow: auto;
+}

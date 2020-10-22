@@ -1,0 +1,45 @@
+<mat-card style="max-width: 400px;">
+  <div> <!--class="max-imageview">-->
+    <ng-container *ngIf="selectedImage">
+      <img mat-card-image [@imageState]="imageActive ? 'active' : 'inactive'" src="/uploads/{{selectedImage.fileName}}"><!--  class="img-fluid" alt="">-->
+    </ng-container>
+  </div>
+
+  <!--Beschreibung des Bildes-->
+  <mat-card-content>
+    <table>
+      <tr>
+        <th *ngIf="selectedImage?.age > 0" class="max-attribute">Alter</th>
+        <th *ngIf="selectedImage?.gender == 0 || selectedImage?.gender == 1" class="max-attribute">Geschlecht</th>
+      </tr>
+      <tr>
+        <td *ngIf="selectedImage?.age > 0">{{selectedImage?.age}}</td>
+        <td *ngIf="selectedImage?.gender == 0 || selectedImage?.gender == 1">{{selectedImage?.gender | int2Gender}}</td>
+      </tr>
+    </table>
+    <table *ngIf="selectedImage?.imageDescription">
+      <tr>
+        <th class="max-attribute">Beschreibung</th>
+      </tr>
+      <tr class="description">
+        <td class="tr-description">{{selectedImage?.imageDescription}}</td>
+      </tr>
+    </table>
+  </mat-card-content>
+</mat-card>
+
+
+<!--
+Dragliste der Bilder:
+https://www.npmjs.com/package/ngx-drag-scroll
+-->
+
+<div class="max-box">
+  <drag-scroll [snap-disabled]="true" [drag-scroll-y-disabled]="true" [scrollbar-hidden]="true" #nav>
+    <ng-container *ngIf="images.length > 0">
+      <img drag-scroll-item *ngFor="let image of images" src="/uploads/{{image?.fileName}}" (click)="clickItem(image)">
+    </ng-container>
+  </drag-scroll>
+</div>
+
+

@@ -1,0 +1,70 @@
+@import '~@angular/material/theming';
+
+button{
+  outline: none !important;
+}
+
+a{
+  text-decoration: none !important;
+}
+
+.max-shadow{
+  //position: relative;
+  z-index: 1000;
+  @include mat-elevation(2);
+}
+
+.mat-toolbar{
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.bildw{
+    width: 55px;
+    min-width: 55px;
+    height: 45px;
+    padding-right: 10px;
+}
+
+.material-icons.md-48{
+    font-size: 35px;
+}
+
+.fill-space {
+    flex: 1 1 auto;
+}
+
+.menu-container{
+    //width: 100%;
+  height: calc(100vh - 64px);
+  margin-top: 64px;
+}
+
+@media (max-width: 600px) {
+  .menu-container {
+    height: calc(100vh - 56px);
+  }
+}
+
+/*.menu-sidenav {
+  padding-right: 100px;
+}*/
+
+/*mat-list-item{
+  border-bottom: solid;
+  border-width: thin;
+  border-color: #F0F0F0;
+}*/
+.max-nav{
+    margin-right: 150px;
+}
+
+/*mat-toolbar{
+  position: relative;
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.3);
+}*/
+
+
+
+

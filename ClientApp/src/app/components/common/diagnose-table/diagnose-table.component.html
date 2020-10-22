@@ -1,0 +1,55 @@
+<!--Differentialdiagnosen in der Tabelle-->
+<mat-card class="max-diagnosen">
+  <div>Differentialdiagnosen:</div>
+  <mat-form-field class="filter">
+    <input matInput (keyup)="applyFilter($event.target.value, diagnoseTableContent)" placeholder="Filter">
+  </mat-form-field>
+  <div class="mat-table-wrapper">
+    <table mat-table [dataSource]="diagnoseTableContent" class="diagnose-table">
+
+      <!-- Checkbox Column -->
+      <ng-container matColumnDef="select" class="differentialdiagnoseCheck">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? masterToggle() : null"
+                        [checked]="differentialdiagnoseSelection.hasValue() && isAllSelected()"
+                        [indeterminate]="differentialdiagnoseSelection.hasValue() && !isAllSelected()">
+          </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()"
+                        (change)="$event ? testToggle(row) : null"
+                        [checked]="differentialdiagnoseSelection.isSelected(row)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+
+      <!-- Position Column -->
+
+      <ng-container matColumnDef="icd">
+        <th mat-header-cell *matHeaderCellDef>Icd</th>
+        <td mat-cell *matCellDef="let element"> {{element.icd | firstElement}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="technicalTerm">
+        <th mat-header-cell *matHeaderCellDef>Fachbegriff</th>
+        <td mat-cell *matCellDef="let element"> {{element.technicalTerm}}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="synonym">
+        <th mat-header-cell *matHeaderCellDef>Synonym</th>
+        <td mat-cell *matCellDef="let element"> {{element.synonym | firstElement}}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="prevalence">
+        <th mat-header-cell *matHeaderCellDef>Prevalenz</th>
+        <td mat-cell *matCellDef="let element"> {{element.prevalence}}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="diagnoseDisplayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: diagnoseDisplayedColumns;"
+          (click)="differentialdiagnoseSelection.toggle(row)"></tr>
+    </table>
+  </div>
+</mat-card>

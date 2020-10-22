@@ -1,0 +1,20 @@
+<mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+  <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+    <button type="button" mat-icon-button matTreeNodeToggle
+            [attr.aria-label]="'toggle ' + node.filename">
+      <mat-icon>
+        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+      </mat-icon>
+    </button>
+    <div class="categoryName" (click)="routeToCategory(node)" *ngIf="node.item != 'root'">{{node.item}}</div>
+  </mat-tree-node>
+
+  <mat-tree-node *matTreeNodeDef="let node"  matTreeNodePadding>
+    <button type="button" mat-icon-button disabled></button>
+    <div class="categoryName" (click)="routeToCategory(node)" *ngIf="node.item != 'root'">{{node.item}}</div>
+  </mat-tree-node>
+</mat-tree>
+
+<ng-container *ngIf="setId">
+  <max-symptom-category-view *ngIf="setId" [id]="setId"></max-symptom-category-view>
+</ng-container>

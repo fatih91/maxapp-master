@@ -1,0 +1,231 @@
+<form style="margin-top: 15px; padding: 0 45px;" (keydown.enter)="$event.preventDefault()" novalidate (ngSubmit)="saveDiagnose(form.value)" #form="ngForm">
+  <div class="diagnose-container">
+    <div class="max-basic">
+      <div class="form-group">
+        <mat-form-field>
+          <input matInput placeholder="Fachbegriff" [edit]="checkId" required maxapp-UniqueDiagnoseTechnicalTermValidator name="technicalTerm"
+                 #technicalTermModel="ngModel" [(ngModel)]="diagnose.technicalTerm">
+          <mat-error *ngIf="technicalTermModel?.errors?.required">Fachbegriff ist ein Pflichtfeld</mat-error>
+          <mat-error *ngIf="technicalTermModel?.errors?.technicalTermExists">Fachbegriff existiert bereits</mat-error>
+          <!--  <input matInput placeholder="Fachbegriff" name="technicalTerm"
+                   #technicalTermModel="ngModel" [(ngModel)]="diagnose.technicalTerm">  -->
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field>
+          <textarea matInput placeholder="Definition" name="definition" #definition maxlength="512" [(ngModel)]="diagnose.definition"></textarea>
+          <mat-hint align="end">{{definition.value.length}} / 512</mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="form-group">
+        <mat-form-field>
+          <input matInput placeholder="Erbgang" [(ngModel)]="diagnose.inheritance" class="form-control" name="inheritance" ngModel>
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field>
+          <input matInput placeholder="Ursache" class="form-control" [(ngModel)]="diagnose.reason" name="reason" ngModel>
+        </mat-form-field>
+      </div>
+      <div class="form-group">
+        <mat-form-field>
+          <input matInput placeholder="Alter" class="form-control" [(ngModel)]="diagnose.ageTime" name="ageTime" ngModel>
+        </mat-form-field>
+      </div>
+      <div class="form-group">
+        <mat-form-field>
+          <input matInput placeholder="Jahreszeit" class="form-control" [(ngModel)]="diagnose.season" name="season" ngModel>
+        </mat-form-field>
+      </div>
+      <div class="form-group">
+        <mat-form-field>
+          <input matInput placeholder="Prävalenz" class="form-control" [(ngModel)]="diagnose.prevalence" name="prevalence" ngModel>
+        </mat-form-field>
+      </div>
+
+      <!--Chiplisten-->
+
+      <!--Synonyme-->
+      <div class="form-group">
+        <mat-form-field class="example-chip-list">
+          <mat-chip-list #chipSynonymList>
+            <mat-chip *ngFor="let synonym of synonyms" [selectable]="selectable"
+                      [removable]="removable" (removed)="remove(synonym,'synonyms')">
+              {{synonym.value}}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input placeholder="Synonyme"
+                   [matChipInputFor]="chipSynonymList"
+                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                   [matChipInputAddOnBlur]="addOnBlur"
+                   (matChipInputTokenEnd)="add($event,'synonyms')">
+          </mat-chip-list>
+          <mat-hint align="start"><strong>{{chipListMessage}}</strong> </mat-hint>
+        </mat-form-field>
+      </div>
+
+
+      <!--ICD-->
+
+      <div class="form-group">
+        <mat-form-field class="example-chip-list">
+          <mat-chip-list #chipIcdList>
+            <mat-chip *ngFor="let icd of icds" [selectable]="selectable"
+                      [removable]="removable" (removed)="remove(icd,'icds')">
+              {{icd.value}}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input placeholder="ICD"
+                   [matChipInputFor]="chipIcdList"
+                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                   [matChipInputAddOnBlur]="addOnBlur"
+                   (matChipInputTokenEnd)="add($event,'icds')">
+
+          </mat-chip-list>
+          <mat-error>Unzulässige ICD</mat-error>
+          <mat-hint align="start"><strong>{{chipListMessage}}</strong> </mat-hint>
+        </mat-form-field>
+      </div>
+
+      <!--Diagnkostik-->
+
+      <div class="form-group">
+        <mat-form-field class="example-chip-list">
+          <mat-chip-list #chipDiagnosticList>
+            <mat-chip *ngFor="let diagnostic of diagnostics" [selectable]="selectable"
+                      [removable]="removable" (removed)="remove(diagnostic,'diagnostics')">
+              {{diagnostic.value}}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input placeholder="Diagnostiken"
+                   [matChipInputFor]="chipDiagnosticList"
+                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                   [matChipInputAddOnBlur]="addOnBlur"
+                   (matChipInputTokenEnd)="add($event,'diagnostics')">
+          </mat-chip-list>
+          <mat-hint align="start"><strong>{{chipListMessage}}</strong> </mat-hint>
+        </mat-form-field>
+      </div>
+
+      <!--Tags-->
+
+      <max-tag-create #tagCreate></max-tag-create>
+    </div>
+
+    <!--Prognosen, Therapien und Checklisten Bereich-->
+
+    <div style="margin-top: 50px;" class="max-change-input">
+      <label>Prognosen</label>
+      <button mat-icon-button color="primary" type="button" (click)="addPrognose()"><mat-icon>add</mat-icon></button>
+      <div ngModelGroup="prognoses">
+        <div *ngFor="let prognose of prognoses; let i = index">
+          <mat-form-field>
+            <textarea matInput placeholder="Beschreibung" name="{{i}}" [(ngModel)]="prognose.value" minlength="3" (change)="testData(prognose, i)" required #prognoseModel="ngModel"></textarea>
+            <mat-error *ngIf="prognoseModel?.errors?.required">Beschreibung darf nicht leer bleiben</mat-error>
+            <mat-error *ngIf="prognoseModel?.errors?.minlength">Mindestens drei Zeichen werden erwartet</mat-error>
+          </mat-form-field>
+          <button mat-icon-button color="warn" type="button" (click)="remove(prognose,'prognoses')"><mat-icon>delete</mat-icon></button>
+        </div>
+      </div>
+
+      <label>Therapien</label>
+      <button mat-icon-button color="primary" type="button" (click)="addTherapy()"><mat-icon>add</mat-icon></button>
+      <div ngModelGroup="therapies">
+        <div *ngFor="let therapy of therapies; let j = index">
+          <mat-form-field>
+            <textarea matInput placeholder="Beschreibung" name="{{j}}" [(ngModel)]="therapy.value"  minlength="3" required #therapyModel="ngModel"></textarea>
+            <mat-error *ngIf="therapyModel?.errors?.required">Beschreibung darf nicht leer bleiben</mat-error>
+            <mat-error *ngIf="therapyModel?.errors?.minlength">Mindestens drei Zeichen werden erwartet</mat-error>
+          </mat-form-field>
+          <button mat-icon-button color="warn" type="button" (click)="remove(therapy,'therapies')"><mat-icon>delete</mat-icon></button>
+        </div>
+
+      </div>
+    </div>
+
+    <div>
+      <label>Checkliste</label>
+      <button mat-icon-button color="primary" type="button" (click)="addChecklist()"><mat-icon>add</mat-icon></button>
+    </div>
+    <div ngModelGroup="checklists">
+      <div *ngFor="let check of checklist; let k = index">
+        <mat-form-field class="max-checklist">
+          <textarea matInput placeholder="Untersuchung" name="{{k}}" [(ngModel)]="check.checkup" minlength="3" required #checkupModel="ngModel"></textarea>
+          <mat-error *ngIf="checkupModel?.errors?.required">Beschreibung darf nicht leer bleiben</mat-error>
+          <mat-error *ngIf="checkupModel?.errors?.minlength">Mindestens drei Zeichen werden erwartet</mat-error>
+        </mat-form-field>
+        <mat-form-field class="max-checklist">
+          <textarea matInput placeholder="Grund" name="{{k}}" [(ngModel)]="check.reason" minlength="3" required #reasonModel="ngModel"></textarea>
+          <mat-error *ngIf="reasonModel?.errors?.required">Beschreibung darf nicht leer bleiben</mat-error>
+          <mat-error *ngIf="reasonModel?.errors?.minlength">Mindestens drei Zeichen werden erwartet</mat-error>
+        </mat-form-field>
+        <button mat-icon-button color="warn" type="button" (click)="remove(check,'checklist')"><mat-icon>delete</mat-icon></button>
+      </div>
+    </div>
+
+
+    <!--Symptome in der Tabelle-->
+
+    <mat-card class="max-diagnosen">
+      <div>Symptome:</div>
+      <mat-form-field class="filter">
+        <input matInput (keyup)="applyFilter($event.target.value, symptomTableContent)" placeholder="Filter">
+      </mat-form-field>
+      <div class="mat-table-wrapper">
+        <table mat-table [dataSource]="symptomTableContent" class="symptom-table">
+
+          <!-- Checkbox Column -->
+          <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef>
+              <mat-checkbox
+                (change)="$event ? masterToggle('symptom') : null"
+                [checked]="symptomSelection.hasValue() && isAllSelected('symptom')"
+                [indeterminate]="symptomSelection.hasValue() && !isAllSelected('symptom')">
+              </mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <mat-checkbox (click)="$event.stopPropagation();"
+                            (change)="$event ? symptomSelection.toggle(row) : null"
+                            [checked]="symptomSelection.isSelected(row)">
+              </mat-checkbox>
+            </td>
+          </ng-container>
+
+          <!-- Position Column -->
+          <ng-container matColumnDef="technicalTerm">
+            <th mat-header-cell *matHeaderCellDef>Fachbegriff</th>
+            <td mat-cell *matCellDef="let element"> {{element.technicalTerm}}</td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="synonym">
+            <th mat-header-cell *matHeaderCellDef>Synonym</th>
+            <td mat-cell *matCellDef="let element"> {{element.synonyms | firstElement}}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="symptomDisplayedColumns; sticky: true;"></tr>
+          <tr mat-row *matRowDef="let row; columns: symptomDisplayedColumns;"
+              (click)="symptomSelection.toggle(row)"></tr>
+        </table>
+      </div>
+    </mat-card>
+
+    <!--Bildauswahl-->
+
+    <span class="max-tooltip" matTooltip="Wählen Sie zunächst ein Symptom aus">
+      <button class="max-button" mat-flat-button color="primary" [disabled]="!isCheckboxSelected()" type="button" (click)="openDialog()">Diagnosebild auswählen</button>
+    </span>
+
+    <max-diagnose-table *ngIf="differentialdiagnoseTableContent && differentialdiagnoseSelection" [differentialdiagnoseSelection]="differentialdiagnoseSelection" [diagnoseTableContent]="differentialdiagnoseTableContent" (selectedDiagnoses)="selectedDiagnoses($event)">
+    </max-diagnose-table>
+
+
+    <!--Speichere die Diagnose ab-->
+    <button mat-flat-button color="primary" class="max-save-diagnose" type="submit"
+            [disabled]="!form.valid">
+      Diagnose speichern
+    </button>
+  </div>
+</form>

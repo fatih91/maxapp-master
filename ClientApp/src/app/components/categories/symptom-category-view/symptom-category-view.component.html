@@ -1,0 +1,11 @@
+<mat-form-field class="filter">
+  <input matInput [(ngModel)]="searchText" placeholder="Filter">
+</mat-form-field>
+<div class="card" *ngFor="let symptom of symptoms | filter: searchText">
+  <a routerLink="/symptom/{{symptom.symptomId}}">
+    <mat-grid-list [cols]="3" rowHeight="2:1">
+      <mat-grid-tile><img *ngIf="symptom.fileName" src="/uploads/{{symptom?.fileName}}" style="width:200px; position: absolute; left: 5px;"></mat-grid-tile>
+      <mat-grid-tile><div style="position: absolute; left: 5px;">{{symptom?.technicalTerm}}</div></mat-grid-tile>
+    </mat-grid-list>
+  </a>
+</div>

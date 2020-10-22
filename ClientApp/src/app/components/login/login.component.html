@@ -1,0 +1,13 @@
+<div class="login-page">
+    <div class="form">
+        <form class="login-form">
+            <img src="../../../assets/logo.svg" style="padding-bottom: 20px; width:100%">
+            <!--<img src="/assets/images/logo.svg">-->
+
+            <input type="text" placeholder="Anmeldename" #username/>
+            <input type="password" placeholder="Passwort" #password/>
+            <button (click)="login(username.value, password.value)">login</button>
+        </form>
+    </div>
+</div>
+

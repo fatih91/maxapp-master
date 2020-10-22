@@ -1,0 +1,86 @@
+ <max-diagnose-basics *ngIf="diagnose" [diagnose]="diagnose"></max-diagnose-basics>
+
+
+ <div class="container-fluid" *ngIf="diagnose">
+  <div class="row">
+    <div class="col-lg-7 col-md-9">
+      <div class="max-flex-buttons">
+        <button type="button"  mat-icon-button *ngIf="expansionPanel()" (click)="matAccordion.openAll()"><mat-icon>add</mat-icon></button>
+        <button type="button"  mat-icon-button *ngIf="expansionPanel()" (click)="matAccordion.closeAll()"><mat-icon>remove</mat-icon></button>
+      </div>
+      <mat-accordion #matAccordion="matAccordion" [multi]="true">
+        <mat-expansion-panel *ngIf="diagnose.checklists.length > 0">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Checkliste
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="table-wrapper">
+            <table class="diagnose-table">
+              <tr>
+                <th class="checklistHeader">Beschreibung</th>
+                <th class="checklistHeader">Ursache</th>
+              </tr>
+              <tr *ngFor="let checkpoint of diagnose.checklists">
+                <td class="checklistContent">{{checkpoint.checkup}}</td>
+                <td class="checklistContent">{{checkpoint.reason}}</td>
+              </tr>
+            </table>
+          </div>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel  *ngIf="diagnose.prognoses.length > 0">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Prognosen
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-list>
+            <mat-list-item *ngFor="let prognose of diagnose.prognoses">
+              <div class="table-value-wrapper">{{prognose.value}}</div>
+              <mat-divider></mat-divider>
+            </mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel *ngIf="diagnose.therapies.length > 0">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Therapien
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-list>
+            <mat-list-item *ngFor="let therapy of diagnose.therapies">
+              <div class="table-value-wrapper">{{therapy.value}}</div>
+              <mat-divider></mat-divider>
+            </mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel *ngIf="diagnose.symptoms.length > 0">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Symptome
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+         <max-symptom-table *ngIf="diagnose" [diagnose]="diagnose">
+          </max-symptom-table>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel *ngIf="diagnose.differentialdiagnoses.length > 0">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Differentialdiagnosen
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <max-differentialdiagnose-table *ngIf="diagnose" [diagnose]="diagnose">
+          </max-differentialdiagnose-table>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </div>
+</div>
+
+
+
+

@@ -1,0 +1,76 @@
+@import "variables";
+
+div.container-fluid {
+  margin-top: 36px;
+  padding: 0 45px;
+  padding-bottom: 20px;
+}
+
+td{
+  padding: 0px 30px 5px 5px;
+  text-align: left;
+}
+
+.checklistContent{
+  padding-bottom: 12px;
+  padding-top: 12px;
+  text-align: left;
+}
+
+.checklistHeader{
+  font-weight: normal;
+  font-size: 15px;
+  padding-bottom: 12px;
+  padding-right: 50px;
+  text-align: left;
+}
+
+button{
+  outline: none;
+}
+
+.max-flex-buttons{
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+}
+
+.max-flex-buttons button:first-child{
+  margin-left: auto;
+}
+
+.max-flex-buttons button mat-icon{
+  color: $max-main-color;
+}
+
+.mat-expansion-panel{
+  overflow: auto;
+}
+
+.mat-expansion-panel-content{
+  height: 300px !important;
+}
+
+div.table-wrapper{
+  overflow: auto;
+}
+
+table.diagnose-table{
+  width: 300px;
+  background: transparent;
+}
+
+.mat-list .mat-list-item {
+  height: unset;//100% !important;
+}
+
+.table-value-wrapper{
+  margin: 15px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 599px){
+  .mat-expansion-panel{
+    width: 270px;
+  }
+}

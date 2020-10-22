@@ -1,0 +1,16 @@
+table {
+  width: 100%;
+  box-shadow: none;
+}
+
+div.table-wrapper{
+  overflow: auto;
+}
+
+.mat-expansion-panel-content{
+  height: 300px;
+}
+
+tr.changePointer{
+  cursor: pointer;
+}

@@ -1,0 +1,43 @@
+<div class="create-diagnose-button-wrapper">
+  <div class="card">
+    <button
+      routerLink="./new"
+      mat-raised-button
+      style="background-color: #003A81!important; "
+      color="primary"
+      (click)="$event.stopPropagation()">
+      Neue Diagnose anlegen
+    </button>
+  </div>
+</div>
+<div class="diagnose-list-wrapper">
+  <div class="card" *ngFor="let diagnose of diagnoses">
+    <mat-grid-list [cols]="3" rowHeight="2:1">
+      <mat-grid-tile>
+        <img *ngIf="diagnose.fileName"
+             src="/uploads/{{diagnose?.fileName}}"
+             style="width:200px; position: absolute; left: 5px;">
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div style="position: absolute; left: 5px;">
+          <a [routerLink]="['/diagnose', diagnose.id]" (click)="$event.stopPropagation();">
+            {{diagnose?.technicalTerm}}
+          </a>
+          <br>
+          <span style="font-size: 12px;color: gray;">{{diagnose?.synonym}}</span>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <a [routerLink]="['/diagnose', diagnose.id]" (click)="$event.stopPropagation();">
+          <i class="material-icons">visibility</i>
+        </a>
+        <a [routerLink]="['./edit', diagnose.id]" (click)="$event.stopPropagation()">
+          <i class="material-icons">build</i>
+        </a>
+        <div (click)="deleteDiagnose(diagnose?.id); $event.stopPropagation()">
+          <i class="material-icons">delete</i>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+</div>

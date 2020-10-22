@@ -1,0 +1,60 @@
+$primary-color: #003A81;
+
+.mat-drawer-content{
+  margin-top: 10px !important;
+}
+
+.max-searcharea{
+  background-color: $primary-color;
+  position: fixed !important;
+  top: 63px;
+  width: 100%;
+  z-index: 20;
+  border-radius: 0px !important;
+}
+
+.max-home-tabs .mat-tab-header{
+  position: fixed !important;
+  top: 149px;
+  width: 100%;
+  z-index: 19;
+  background-color: white;
+}
+
+.max-home-tabs .mat-tab-body-wrapper{
+  position: absolute;
+  top: 121px;
+  bottom: 14px;
+  width: 100%;
+  z-index: 18;
+}
+
+@media(max-width: 599px) {
+  .max-home-tabs .mat-tab-header{
+    top: 141px;
+  }
+
+  .max-searcharea{
+    top: 55px;
+  }
+}
+
+button:focus{
+  outline: none; //ToDO: FE-Blauen Rahmen verhindern
+}
+
+div.input-group-append button.btn-outline-primary {
+  color: $primary-color;
+  background-image: none;
+  background-color: white;
+  border-color: $primary-color;
+  border: none;
+  border-left: 2px solid $primary-color;
+}
+
+.btn-outline-primary:not(:disabled):not(.disabled):active, .btn-outline-primary:not(:disabled):not(.disabled).active,
+.show > .btn-outline-primary.dropdown-toggle {
+  color: #fff;
+  background-color: $primary-color;
+  border-color: $primary-color;
+}

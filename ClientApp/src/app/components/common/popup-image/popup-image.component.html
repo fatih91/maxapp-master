@@ -1,0 +1,7 @@
+<mat-dialog-content>
+  <max-image-slider #imageSlider *ngIf="selectedImages" [images]="selectedImages"></max-image-slider>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Abbrechen</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="saveImage()">Auswahl speichern</button>
+</mat-dialog-actions>

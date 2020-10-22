@@ -1,0 +1,15 @@
+<div *ngFor="let symptom of symptoms$ | async">
+  <a [routerLink]="['/symptom', symptom.symptomId]">
+    <div class="card">
+      <mat-grid-list cols="3" rowHeight="2:1">
+        <mat-grid-tile>
+          <img *ngIf="symptom.images.length > 0" src="/uploads/{{symptom.images | firstElementOfImage}}"
+               style="width:200px; position: absolute; left:5px;">
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <div style="position: absolute; left: 5px;">{{symptom.technicalTerm}}</div>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+  </a>
+</div>

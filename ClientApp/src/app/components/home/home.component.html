@@ -1,0 +1,23 @@
+<mat-card class="max-searcharea">
+  <div class="input-group">
+    <input #searchBox placeholder="Suchen" type="text" class="form-control" (keyup)="search(searchBox.value, diagnoseTab.isActive)">
+    <!--<div class="input-group-append">
+      <button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">Action</a>
+        <a class="dropdown-item" href="#">Another action</a>
+      </div>
+    </div>-->
+  </div>
+</mat-card>
+<mat-tab-group (selectedTabChange)="tabChanged($event)" mat-stretch-tabs="always" class="max-home-tabs">
+  <mat-tab #diagnoseTab label="Diagnosen">
+    <max-diagnose-filter-list [searchTerm]="searchDiagnoseTerms"></max-diagnose-filter-list>
+  </mat-tab>
+  <mat-tab #symptomTab label="Symptome">
+    <max-symptom-filter-list [searchTerm]="searchSymptomTerms"></max-symptom-filter-list>
+  </mat-tab>
+</mat-tab-group>
+
+<!--
+ -->

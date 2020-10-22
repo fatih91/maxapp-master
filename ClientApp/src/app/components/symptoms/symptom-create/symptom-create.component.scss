@@ -1,0 +1,46 @@
+$max-basic-width: 300px;
+
+table{
+  width:  100%;
+}
+.filter {
+  width: 100%;
+  max-width: $max-basic-width;
+ // margin-left: 24px;
+}
+
+
+.max-basic{
+  max-width: $max-basic-width;
+  width: 100%
+}
+
+.max-basic .mat-form-field{
+  width: 100%;
+}
+
+button{
+  outline: none;
+}
+
+mat-card.max-diagnosen{
+  margin-top: 30px;
+  max-width: 800px;
+  width: 100%;
+  //overflow: auto;
+}
+
+div.mat-table-wrapper{
+  overflow: auto;
+  height: 400px;
+}
+
+td.mat-cell{
+  padding-right: 15px;
+}
+
+mat-card-header{
+  margin-left: 16px;
+  box-sizing: border-box;
+  //padding-top: 14px;
+}

@@ -1,0 +1,29 @@
+<div class="table-wrapper">
+  <table mat-table [dataSource]="differentialdiagnoses" matSort (matSortChange)="sortData($event)" class="mat-elevation-z8">
+    <ng-container matColumnDef="icd">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Icd </th>
+      <td mat-cell *matCellDef="let diagnose"> {{diagnose.icd}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="technicalTerm">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> TechnicalTerm </th>
+      <td mat-cell *matCellDef="let diagnose"> {{diagnose.technicalTerm}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="synonym">
+
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Synonym </th>
+      <td mat-cell *matCellDef="let diagnose"> {{diagnose.synonym}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="prevalence">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Prävalenz </th>
+      <td mat-cell *matCellDef="let diagnose"> {{diagnose.prevalence}}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr class="changePointer" mat-row *matRowDef="let row; columns: displayedColumns;" (click)="routeDiagnose(row)"></tr>
+  </table>
+</div>
+
+

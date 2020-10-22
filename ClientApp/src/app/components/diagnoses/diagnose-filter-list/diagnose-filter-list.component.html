@@ -1,0 +1,16 @@
+<div class="card max-item" *ngFor="let diagnose of diagnoses$| async">
+  <a routerLink="/diagnose/{{diagnose.diagnoseId}}">
+    <mat-grid-list [cols]="3" rowHeight="2:1">
+      <mat-grid-tile>
+        <img
+          *ngIf="diagnose.image"
+          src="/uploads/{{diagnose.image?.fileName}}"
+          style="width:200px; position: absolute; left:5px;">
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div style="position:absolute; left:5px">{{diagnose.technicalTerm}}</div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </a>
+</div>
+

@@ -1,0 +1,109 @@
+$max-basic-width: 300px;
+
+.max-tooltip{
+  max-width: 190px;
+  width: 100%;
+}
+
+button{
+  outline: none;
+}
+
+button.max-button, button.max-save-diagnose{
+  margin-top: 20px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 190px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.max-save-diagnose{
+  margin: 20px 0;
+}
+
+mat-card.max-diagnosen{
+  max-width: 800px;
+  width: 100%;
+  margin-top: 30px;
+  overflow: auto;
+}
+
+div.mat-table-wrapper{
+  overflow: auto;
+  height: 400px;
+}
+
+td.mat-cell{
+  padding-right: 15px;
+}
+
+.mat-checkbox-layout{
+  margin-top: 8px !important;
+}
+
+.max-basic{
+  max-width: $max-basic-width;
+  width: 100%;
+}
+
+.max-basic .mat-form-field{
+  width: 100%;
+}
+
+.max-change-input{
+  max-width: $max-basic-width;
+  width: 100%
+}
+
+.max-change-input .mat-form-field{
+  width: 80%;
+}
+
+.max-checklist:first-child{
+  margin-right: 20px;
+}
+
+.max-checklist{
+  width:100%;
+  max-width: $max-basic-width;
+}
+
+.diagnose-container {
+  display: flex;
+  flex-direction: column;
+}
+
+table {
+  width: 100%;
+}
+
+:host{
+  padding-bottom: 20px;
+}
+
+input:focus,input:active {
+  outline: none !important;
+  box-shadow: none;
+  background-color: transparent;
+}
+
+.symptom-table {
+  //display: block;
+  //height: 500px;
+  //overflow: auto;
+}
+
+th{
+  width: 20%
+}
+
+td {
+  width: auto
+}
+
+.filter{
+  width: 100%;
+  max-width: $max-basic-width;
+}

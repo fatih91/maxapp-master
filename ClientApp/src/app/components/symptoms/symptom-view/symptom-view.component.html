@@ -1,0 +1,82 @@
+<mat-tab-group *ngIf="symptom" (selectedIndexChange)="getCategory($event)" mat-stretch-tabs="always">
+  <mat-tab *ngFor="let parentcategory of parentcategories; let index = index" [label]="parentcategory.name">
+    <ng-template matTabContent>
+      <div *ngFor="let symptom of category?.symptoms">
+        {{symptom.technicalTerm}}
+      </div>
+    </ng-template>
+  </mat-tab>
+  <ng-container *ngIf="symptom.category">
+    <mat-tab *ngIf="symptom?.category?.name != 'root'" [label]="symptom?.category?.name">
+      <ng-template matTabContent>
+        <div *ngFor="let symptom of category?.symptoms">
+          {{symptom.technicalTerm}}
+        </div>
+      </ng-template>
+    </mat-tab>
+  </ng-container>
+  <mat-tab [label]="symptom?.technicalTerm">
+    <ng-template matTabContent>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5">
+            <div class="max-title">{{symptom.technicalTerm}}</div>
+
+            <ng-container *ngIf="symptom.definition">
+              <div class="max-attribute">Definition</div>
+              <div class="max-info">{{symptom.definition}}</div>
+            </ng-container>
+
+            <ng-container *ngIf="symptom.synonyms.length > 0">
+              <div class="max-attribute">Synonyme</div>
+              <div class="max-info">{{symptom.synonyms | arrayToString}}</div>
+            </ng-container>
+
+            <max-tag *ngIf="symptom.tags.length > 0" [tags]="symptom.tags"></max-tag>
+          </div>
+
+          <!--Image Slider-->
+          <div class="col-xl-7 col-lg-7 col-md-7 col-sm-7 default-top-margin">
+            <max-image-slider *ngIf="symptom.images.length > 0" [images]="symptom.images"></max-image-slider>
+          </div>
+        </div>
+
+        <!-- Diagnose-Tabelle -->
+        <div class="row">
+          <div class="col-lg-9 col-md-12">
+            <div class="max-diagnosen mat-elevation-z8" *ngIf="diagnoses.data.length > 0">
+              <div>Diagnosen:</div>
+              <div class="mat-table-wrapper">
+                <table mat-table [dataSource]="diagnoses" matSort (matSortChange)="sortData($event)">
+                  <ng-container matColumnDef="icd">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Icd </th>
+                    <td mat-cell *matCellDef="let diagnose"> {{diagnose.icds | firstElement}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="technicalTerm">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> TechnicalTerm </th>
+                    <td mat-cell *matCellDef="let diagnose"> {{diagnose.technicalTerm}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="synonym">
+
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Synonym </th>
+                    <td mat-cell *matCellDef="let diagnose"> {{diagnose.synonyms | firstElement}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="prevalence">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Prävalenz </th>
+                    <td mat-cell *matCellDef="let diagnose"> {{diagnose.prevalence}}</td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr class="changePointer" mat-row *matRowDef="let row; columns: displayedColumns;" (click)="routeDiagnose(row)"></tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>

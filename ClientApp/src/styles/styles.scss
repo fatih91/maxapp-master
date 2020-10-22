@@ -1,0 +1,30 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/scss/bootstrap-reboot';
+@import '~bootstrap/scss/bootstrap-grid';
+@import '~bootstrap/scss/bootstrap';
+@import 'variables';
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+html, body, .viewport {
+  //width: 100%;
+  //min-height: 100vh;
+  //height: auto;
+  //margin: 0;
+  overflow: hidden;
+  /*  position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    height: 100%;*/
+}
+
+@media(max-width: 600px) {
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}
+

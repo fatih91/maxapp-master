@@ -1,0 +1,42 @@
+@import "variables";
+
+a{
+  text-decoration: none !important;
+  outline: none;
+  color: #1a1a1a;
+}
+
+i{
+  margin-left: 8px;
+  color: $max-main-color;
+}
+
+.material-icons{
+  cursor: pointer;
+}
+
+.material-icons:hover{
+  color: $max-hover-color;
+}
+
+div.create-diagnose-button-wrapper{
+  position: fixed;
+  top: 64px;
+  width: 100%;
+  z-index: 20;
+  height: 50px;
+}
+
+div.diagnose-list-wrapper{
+  position: absolute;
+  top: 38px;
+  width: 100%;
+  z-index: 19;
+}
+
+@media (max-width: 599px) {
+  div.create-diagnose-button-wrapper{
+    top: 56px;
+  }
+}
+

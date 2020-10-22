@@ -1,0 +1,29 @@
+version: '3'
+services:
+  webapp:
+    container_name: maxapp
+    image: aspnetapp
+    build:
+      context: ../
+      dockerfile: Docker/Maxapp.dockerfile
+    ports: 
+      - "8000:80"
+      #- "8001:443"
+    links:
+      - mysql
+    environment:
+      MYSQL_SERVER_NAME: db
+      ASPNETCORE_URLS: http://+ #https://+;http://+
+      #ASPNETCORE_HTTPS_PORT: 8001
+      #ASPNETCORE_Kestrel__Certificates__Default__Password: crypticpassword
+      #ASPNETCORE_Kestrel__Certificates__Default__Path: /https/aspnetapp.pfx 
+
+  mysql:
+    container_name: db
+    image: mysql/mysql-server:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: maxdb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: root
+      MYSQL_RANDOM_ROOT_PASSWORD: !!str yes

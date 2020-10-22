@@ -1,0 +1,6 @@
+<div class="max-attribute">Tags</div>
+<mat-chip-list>
+  <div *ngFor="let tag of tags">
+    <mat-chip [color]="primary">{{tag.name}}</mat-chip>
+  </div>
+</mat-chip-list>

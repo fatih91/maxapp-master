@@ -1,0 +1,43 @@
+<div class="create-symptom-button-wrapper">
+  <div class="card">
+    <button
+      routerLink="./new"
+      mat-raised-button
+      style="background-color: #003A81!important; "
+      color="primary"
+      (click)="$event.stopPropagation()">
+      Neues Symptom anlegen
+    </button>
+  </div>
+</div>
+<div class="symptom-list-wrapper">
+  <div class="card" *ngFor="let symptom of symptoms">
+    <mat-grid-list [cols]="3" rowHeight="2:1">
+      <mat-grid-tile>
+        <img *ngIf="symptom.fileName"
+             src="uploads/{{symptom?.fileName}}"
+             style="width:200px; position: absolute; left: 5px;">
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div style="position: absolute; left: 5px;">
+          <a [routerLink]="['/symptom', symptom.id]" (click)="$event.stopPropagation();" >
+            {{symptom?.technicalTerm}}
+          </a>
+          <br>
+          <span style="font-size: 12px;color: gray;">{{symptom?.synonym}}</span>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <a [routerLink]="['/symptom', symptom.id]" (click)="$event.stopPropagation();" >
+          <i class="material-icons">visibility</i>
+        </a>
+        <a [routerLink]="['./edit', symptom.id]" (click)="$event.stopPropagation();" >
+          <i class="material-icons">build</i>
+        </a>
+        <a (click)="deleteSymptom(symptom?.id); $event.stopPropagation()">
+          <i class="material-icons">delete</i>
+        </a>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+</div>

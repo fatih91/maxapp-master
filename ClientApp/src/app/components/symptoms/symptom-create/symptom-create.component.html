@@ -1,0 +1,133 @@
+<form style="margin-top: 15px; padding: 0 45px;" (keydown.enter)="$event.preventDefault()" novalidate (ngSubmit)="saveSymptom(form.value)" #form="ngForm">
+  <div class="symptom-container">
+    <div class="max-basic">
+      <div class="form-group">
+        <mat-form-field>
+          <input matInput placeholder="Fachbegriff" required [edit]="checkId" maxapp-UniqueSymptomTechnicalTermValidator name="technicalTerm"
+                 #technicalTermModel="ngModel" [(ngModel)]="symptom.technicalTerm">
+          <mat-error *ngIf="technicalTermModel?.errors?.required">Fachbegriff ist ein Pflichtfeld</mat-error>
+          <mat-error *ngIf="technicalTermModel?.errors?.technicalTermExists">Fachbegriff existiert bereits</mat-error>
+        </mat-form-field>
+      </div>
+
+      <!--Synonyme-->
+      <div class="form-group">
+        <mat-form-field class="example-chip-list">
+          <mat-chip-list #chipSynonymList>
+            <mat-chip *ngFor="let synonym of synonyms" [selectable]="selectable"
+                      [removable]="removable" (removed)="remove(synonym,'synonyms')">
+              {{synonym.value}}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input placeholder="Synonyme"
+                   [matChipInputFor]="chipSynonymList"
+                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                   [matChipInputAddOnBlur]="addOnBlur"
+                   (matChipInputTokenEnd)="add($event,'synonyms')">
+          </mat-chip-list>
+        </mat-form-field>
+      </div>
+
+      <!--Definition-->
+      <div class="form-group">
+        <mat-form-field>
+          <textarea matInput [(ngModel)]="symptom.definition" name="definition" placeholder="Definition"></textarea>
+        </mat-form-field>
+      </div>
+      <!--Tags-->
+      <max-tag-create #tagCreate></max-tag-create>
+    </div>
+
+    <!--File Input Bereich-->
+
+    <input style="display: none;" type="file" (change)="readUrl($event)" accept="image/*" #fileInput>
+    <button style="margin-top:50px;" type="button" (click)="fileInput.click()" mat-flat-button color="primary">Bild auswählen</button>
+
+    <mat-list>
+      <mat-list-item *ngFor="let url of urls; let i = index;">
+        <img matListAvatar  src="{{url}}" class="img-thumbnail">
+        <h3 matLine>
+            <mat-form-field style="width: 35px; margin-right: 10px;">
+              <input type="number" matInput [(ngModel)]="localFiles[i].age" name="age" placeholder="Alter" [ngModelOptions]="{standalone: true}">
+            </mat-form-field>
+            <mat-form-field style="margin-right: 10px;">
+              <mat-select placeholder="Geschlecht" [(value)]="localFiles[i].gender">
+                <mat-option *ngFor="let gender of genders" [value]="gender.value">
+                  {{gender.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field style="margin-right: 10px;">
+              <input type="text" matInput [(ngModel)]="localFiles[i].imageDescription" name="imageDescription" placeholder="Beschreibung" [ngModelOptions]="{standalone: true}">
+            </mat-form-field>
+            <button type="button" (click)="deleteImageFromLocalFiles(i)">Delete</button>
+        </h3>
+      </mat-list-item>
+    </mat-list>
+
+
+    <!--Diagnosen in der Tabelle-->
+
+    <mat-card class="max-diagnosen">
+      <div>Diagnosen:</div>
+      <mat-form-field class="filter">
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+      <div class="mat-table-wrapper">
+        <table mat-table [dataSource]="diagnoseTableContent">
+
+          <!-- Checkbox Column -->
+          <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef>
+              <mat-checkbox (change)="$event ? masterToggle() : null"
+                            [checked]="diagnoseSelection.hasValue() && isAllSelected()"
+                            [indeterminate]="diagnoseSelection.hasValue() && !isAllSelected()">
+              </mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <mat-checkbox (click)="$event.stopPropagation()"
+                            (change)="$event ? diagnoseSelection.toggle(row) : null"
+                            [checked]="diagnoseSelection.isSelected(row)">
+              </mat-checkbox>
+            </td>
+          </ng-container>
+
+          <!-- Position Column -->
+          <ng-container matColumnDef="technicalTerm">
+            <th mat-header-cell *matHeaderCellDef> Fachbegriff </th>
+            <td mat-cell *matCellDef="let element"> {{element.technicalTerm}} </td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="synonym">
+            <th mat-header-cell *matHeaderCellDef> Synonym </th>
+            <td mat-cell *matCellDef="let element"> {{element.synonyms | firstElement}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+              (click)="diagnoseSelection.toggle(row)"></tr>
+        </table>
+      </div>
+    </mat-card>
+
+
+    <!--
+    Kategorien die ausgewählt werden können:
+    -->
+    <div style="margin-top: 50px;">
+      <mat-card class="max-diagnosen">
+        <div>Kategorien:</div>
+        <max-symptom-categories-create [selectedCategoryId]="symptom.categoryId" (selectedCategoryIdChange)= "selectedCategory($event)"></max-symptom-categories-create>
+      </mat-card>
+    </div>
+
+
+    <!--
+    Speichern der erstellten Kategorien
+    -->
+    <button style="margin: 20px 0;" type="submit" [disabled]="!form.valid" mat-flat-button color="primary">
+      Symptom speichern
+    </button>
+  </div>
+</form>

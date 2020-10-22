@@ -1,0 +1,91 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xl-6 col-lg-7 col-md-6 col-sm-12">
+      <div class="max-header">
+        <div class="max-title">{{diagnose.technicalTerm}}</div>
+
+        <ng-container *ngIf="diagnose.icds?.length > 0">
+          <div class="max-attribute">ICD</div>
+          <div class="max-info">{{diagnose.icds | arrayToString}}</div>
+        </ng-container>
+
+        <ng-container *ngIf="diagnose.definition">
+          <div class="max-attribute">Definition</div>
+          <div class="max-info">{{diagnose.definition}}</div>
+        </ng-container>
+
+        <ng-container *ngIf="diagnose.synonyms.length > 0">
+        <div class="max-attribute">Synonyme</div>
+        <div class="max-info">{{diagnose.synonyms |arrayToString}}</div>
+        </ng-container>
+
+        <ng-container *ngIf="diagnose.reason">
+          <div class="max-attribute">Ursache</div>
+          <div class="max-info">{{diagnose.reason}}</div>
+        </ng-container>
+
+        <ng-container *ngIf="diagnose.diagnostics.length > 0">
+        <div *ngIf="diagnose.diagnostics" class="max-attribute">Diagnostik</div>
+        <div class="max-info">{{diagnose.diagnostics | arrayToString}}</div>
+        </ng-container>
+
+        <ng-container *ngIf="diagnose.ageTime">
+        <div class="max-attribute">Alter</div>
+        <div class="max-info">{{diagnose.ageTime}}</div>
+        </ng-container>
+
+        <ng-container *ngIf="diagnose.season">
+        <div class="max-attribute">Jahreszeit</div>
+        <div class="max-info">{{diagnose.season}}</div>
+        </ng-container>
+
+        <ng-container *ngIf="diagnose.prevalence">
+        <div class="max-attribute">Prävalenz</div>
+        <div class="max-info">{{diagnose.prevalence}}</div>
+        </ng-container>
+
+        <ng-container *ngIf="diagnose.inheritance">
+          <div class="max-attribute">Erbgang</div>
+          <div class="max-info">{{diagnose.inheritance}}</div>
+        </ng-container>
+
+        <max-tag *ngIf="diagnose.tags.length > 0" [tags]="diagnose.tags">
+        </max-tag>
+      </div>
+    </div>
+
+    <div class="col-xl-6 col-lg-5 col-md-6 col-sm-12 default-top-margin">
+
+      <!--Image-->
+
+      <mat-card *ngIf="diagnose.image" class="diagnoseimage">
+        <img mat-card-image src="/uploads/{{diagnose.image.fileName}}">
+        <mat-card-content>
+       <!--   <p *ngIf="diagnose.imageDiagnose.age" class="max-attribute"> Alter Geschlecht</p>
+          <p>{{diagnose.imageDiagnose.age}} {{diagnose.imageDiagnose.gender}}</p>
+        <!--  <p>{{diagnose.imageDiagnose.gender}} </p>
+          <p *ngIf="diagnose.imageDiagnose.imageDescription" class="max-attribute"> Beschreibung</p>
+          <p>{{diagnose.imageDiagnose.imageDescription}}</p>-->
+          <table>
+            <tr>
+              <th *ngIf="diagnose.image.age > 0" class="max-attribute">Alter</th>
+              <th *ngIf="diagnose.image.gender == 0 || diagnose.image.gender == 1" class="max-attribute">Geschlecht</th>
+            </tr>
+            <tr>
+              <td *ngIf="diagnose.image.age > 0">{{diagnose.image.age}}</td>
+              <td *ngIf="diagnose.image.gender == 0 || diagnose.image.gender == 1">{{diagnose.image.gender | int2Gender}}</td>
+             </tr>
+         </table>
+          <table *ngIf="diagnose.image.imageDescription">
+            <tr>
+              <th class="max-attribute">Beschreibung</th>
+            </tr>
+            <tr class="description">
+              <td class="tr-description">{{diagnose.image.imageDescription}}</td>
+            </tr>
+          </table>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
